@@ -11,7 +11,7 @@ class FragmentAdapter (fm : FragmentManager): FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         val fragment =  when(position)
         {
-            0->frag1().newInstant()
+            0-> frag1().newInstant()
             1-> frag2().newInstant()
             2-> frag3().newInstant()
             else -> frag1().newInstant()
