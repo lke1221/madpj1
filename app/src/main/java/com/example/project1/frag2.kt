@@ -1,6 +1,7 @@
 package com.example.project1
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,22 @@ import androidx.fragment.app.Fragment
 class frag2 : Fragment() {
 
     var modalList = ArrayList<Modal>()
+
+    var names = arrayOf(
+        "image1",
+        "image2",
+        "image3",
+        "image4",
+        "image5",
+        "image6",
+        "image7",
+        "image8",
+        "image9",
+        "image10",
+        "image11",
+        "image12",
+    )
+
     var images = intArrayOf(R.drawable.sample_images_01,
         R.drawable.sample_images_02,
         R.drawable.sample_images_03,
@@ -32,14 +49,20 @@ class frag2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        for(i in images.indices){
-            modalList.add(Modal(images[i]))
+        for(i in names.indices){
+            modalList.add(Modal(names[i],images[i]))
         }
 
         var view = inflater.inflate(R.layout.fragment_frag2, container, false)
         var customAdapter = frag2.CustomAdapter(modalList, requireContext());
         var gridView = view.findViewById<GridView>(R.id.gridView);
         gridView.adapter = customAdapter;
+
+        gridView.setOnItemClickListener { adapterView, view, i, l ->
+            var intent = Intent(requireContext(), ViewActivity::class.java)
+            intent.putExtra("data", modalList[i])
+            startActivity(intent);
+        }
 
         return view
     }
@@ -75,6 +98,7 @@ class frag2 : Fragment() {
             if(view==null){
                 view = layoutInflater.inflate(R.layout.row_items,viewGroup,false);
             }
+
             var imageView = view?.findViewById<ImageView>(R.id.imageView);
             imageView?.setImageResource(itemModel[position].image!!)
 

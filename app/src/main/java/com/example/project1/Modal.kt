@@ -4,9 +4,11 @@ import java.io.Serializable
 
 class Modal : Serializable{
 
+    var name:String? = null
     var image:Int? = null
 
-    constructor(image:Int){
+    constructor(name:String, image:Int){
+        this.name = name;
         this.image = image;
     }
 }
