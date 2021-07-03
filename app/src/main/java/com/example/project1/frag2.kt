@@ -22,24 +22,13 @@ class frag2 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val STORAGE_PERMISSION_REQUEST = 200
-        val ct = requireContext()
+        var view = inflater.inflate(R.layout.fragment_frag2, container, false)
 
-        fun checkPermission(permissions: Array<String>, permissionRequestNumber:Int){
-            val permissionResult = ContextCompat.checkSelfPermission(ct, permissions[0])
-            when(permissionResult){
-                PackageManager.PERMISSION_GRANTED -> {
+        while(ContextCompat.checkSelfPermission(view.context, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED){
 
-                }
-                PackageManager.PERMISSION_DENIED -> {
-                    ActivityCompat.requestPermissions(requireActivity(), permissions, permissionRequestNumber)
-                }
-            }
         }
-
-        checkPermission(STORAGE_PERMISSION, STORAGE_PERMISSION_REQUEST)
-
+        val ct = requireContext()
 
         var modalList = ArrayList<Modal>()
 
@@ -76,7 +65,7 @@ class frag2 : Fragment() {
             modalList.add(Modal(names[i],images[i]))
         }
 
-        var view = inflater.inflate(R.layout.fragment_frag2, container, false)
+
         var customAdapter = frag2.CustomAdapter(modalList, ct);
         var gridView = view.findViewById<GridView>(R.id.gridView);
         gridView.adapter = customAdapter;

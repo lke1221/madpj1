@@ -23,23 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 class frag1 : Fragment() {
 
-    val PERMISSIONS_REQUEST_READ_CONTACTS = 1
-
-    fun requestContactPermission(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(view.context, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_CONTACTS), PERMISSIONS_REQUEST_READ_CONTACTS)
-
-            }
-            else {
-                getContacts(view)
-            }
-        }
-        else {
-            getContacts(view)
-        }
-    }
 
     class CustomAdapter(private val dataSet: List<ContactDTO>, ctx: Context) :
         RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -122,14 +105,13 @@ class frag1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         var view:View = inflater.inflate(R.layout.fragment_frag1, container, false)
-
         view.findViewById<RecyclerView>(R.id.contact_list).layoutManager = LinearLayoutManager(view.context)
-        view.findViewById<Button>(R.id.btn_read_contact).setOnClickListener {
-            requestContactPermission(view)
+
+        while(ContextCompat.checkSelfPermission(view.context, Manifest.permission.READ_CONTACTS)
+                    != PackageManager.PERMISSION_GRANTED){
+
         }
-
-
-
+        getContacts(view)
         return view
     }
 
