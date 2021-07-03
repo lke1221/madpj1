@@ -30,7 +30,7 @@ class frag2 : Fragment() {
             val permissionResult = ContextCompat.checkSelfPermission(ct, permissions[0])
             when(permissionResult){
                 PackageManager.PERMISSION_GRANTED -> {
-                    Toast.makeText(ct, "Permission Granted", Toast.LENGTH_SHORT).show()
+
                 }
                 PackageManager.PERMISSION_DENIED -> {
                     ActivityCompat.requestPermissions(requireActivity(), permissions, permissionRequestNumber)

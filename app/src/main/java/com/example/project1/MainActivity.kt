@@ -26,4 +26,8 @@ class MainActivity : AppCompatActivity() {
         val tab = findViewById<TabLayout>(R.id.tab)
         tab.setupWithViewPager(pager)
     }
+
+
+
+
 }
