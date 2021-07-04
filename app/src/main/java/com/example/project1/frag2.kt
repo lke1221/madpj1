@@ -1,22 +1,24 @@
 package com.example.project1
 
 import android.Manifest
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class frag2 : Fragment() {
+
+    private var imageRecycler: RecyclerView?=null
+    private var progressBar: ProgressBar?=null
+    private var allPictures:ArrayList<Image>?=null
+    /*private var temptext: TextView?=null*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,55 +30,47 @@ class frag2 : Fragment() {
             != PackageManager.PERMISSION_GRANTED){
 
         }
-        val ct = requireContext()
 
-        var modalList = ArrayList<Modal>()
+        imageRecycler=view.findViewById(R.id.image_recycler)
+        progressBar=view.findViewById(R.id.recycler_progress)
+        /*temptext=view.findViewById(R.id.text_view)*/
 
-        var names = arrayOf(
-            "image1",
-            "image2",
-            "image3",
-            "image4",
-            "image5",
-            "image6",
-            "image7",
-            "image8",
-            "image9",
-            "image10",
-            "image11",
-            "image12",
-        )
+        imageRecycler?.layoutManager = GridLayoutManager(requireContext(), 3)
+        imageRecycler?.setHasFixedSize(true)
 
-        var images = intArrayOf(R.drawable.sample_images_01,
-            R.drawable.sample_images_02,
-            R.drawable.sample_images_03,
-            R.drawable.sample_images_04,
-            R.drawable.sample_images_05,
-            R.drawable.sample_images_06,
-            R.drawable.sample_images_07,
-            R.drawable.sample_images_08,
-            R.drawable.sample_images_09,
-            R.drawable.sample_images_10,
-            R.drawable.sample_images_11,
-            R.drawable.sample_images_12,)
+        allPictures=ArrayList()
 
-        // Inflate the layout for this fragment
-        for(i in names.indices){
-            modalList.add(Modal(names[i],images[i]))
-        }
-
-
-        var customAdapter = frag2.CustomAdapter(modalList, ct);
-        var gridView = view.findViewById<GridView>(R.id.gridView);
-        gridView.adapter = customAdapter;
-
-        gridView.setOnItemClickListener { adapterView, view, i, l ->
-            var intent = Intent(requireContext(), ViewActivity::class.java)
-            intent.putExtra("data", modalList[i])
-            startActivity(intent);
+        if(allPictures!!.isEmpty()){
+            progressBar?.visibility = View.VISIBLE
+            allPictures=getAllImages()
+            imageRecycler?.adapter=ImageAdapter(requireContext(),allPictures!!)
+            /*temptext?.setText(allPictures!!.size.toString())*/
+            progressBar?.visibility = View.GONE
         }
 
         return view
+    }
+
+    private fun getAllImages(): ArrayList<Image>? {
+        val images=ArrayList<Image>()
+        val allImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME)
+        var cursor = requireActivity().contentResolver.query(allImageUri, projection, null, null, null)
+
+        try{
+            cursor!!.moveToFirst()
+            do{
+                val image = Image(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)))
+                images.add(image)
+            }while(cursor.moveToNext())
+            cursor.close()
+
+        }catch(e:Exception)
+        {
+            e.printStackTrace()
+        }
+        return images
     }
 
     internal fun newInstant() : frag2
@@ -85,38 +79,6 @@ class frag2 : Fragment() {
         val frag = frag2()
         frag.arguments = args
         return frag
-    }
-
-    class CustomAdapter(
-        var itemModel: ArrayList<Modal>,
-        var context: Context
-    ) : BaseAdapter(){
-
-        var layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        override fun getCount(): Int {
-            return itemModel.size
-        }
-
-        override fun getItem(p0: Int): Any {
-            return itemModel[p0]
-        }
-
-        override fun getItemId(p0: Int): Long {
-            return p0.toLong()
-        }
-
-        override fun getView(position: Int, view: View?, viewGroup: ViewGroup?): View {
-            var view = view;
-            if(view==null){
-                view = layoutInflater.inflate(R.layout.row_items,viewGroup,false);
-            }
-
-            var imageView = view?.findViewById<ImageView>(R.id.imageView);
-            imageView?.setImageResource(itemModel[position].image!!)
-
-            return view!!;
-        }
-
     }
 
 }
