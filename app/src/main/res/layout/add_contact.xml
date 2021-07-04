@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="60dp"
+    tools:context=".frag1">
+
+    <ImageView
+        android:id="@+id/profileIv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="#c0c0c0"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_baseline_person_24" />
+
+    <!--EditText: First Name-->
+    <EditText
+        android:id="@+id/firstNameEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/profileIv"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="First Name"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"/>
+
+    <!--EditText: Last Name-->
+    <EditText
+        android:id="@+id/lastNameEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/firstNameEt"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="Last Name"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"/>
+
+    <!--EditText: Phone Number (Mobile)-->
+    <EditText
+        android:id="@+id/phoneMobileEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/lastNameEt"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="Phone Number (Mobile)"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"/>
+
+    <!--EditText: Phone Number (Home)-->
+    <EditText
+        android:id="@+id/phoneHomeEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/lastNameEt"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="Phone Number (Home)"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"/>
+
+    <!--EditText: Email-->
+    <EditText
+        android:id="@+id/emailEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/lastNameEt"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="Email"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
+
+    <!--EditText: Address-->
+    <EditText
+        android:id="@+id/addressEt"
+        android:background="#fff"
+        android:padding="10dp"
+        android:layout_below="@id/emailEt"
+        android:layout_marginTop="5dp"
+        android:textColorHint="#c5c5c5"
+        android:hint="Address"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"/>
+
+    <!--FloatingActionButton: To save the contact -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_baseline_done_24" />
+
+</RelativeLayout>

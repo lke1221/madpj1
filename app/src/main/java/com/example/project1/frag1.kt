@@ -3,6 +3,7 @@ package com.example.project1
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -20,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class frag1 : Fragment() {
 
@@ -112,6 +114,10 @@ class frag1 : Fragment() {
 
         }
         getContacts(view)
+        view.findViewById<FloatingActionButton>(R.id.add_button).setOnClickListener {
+            val intent = Intent(requireActivity(), addContact::class.java)
+            startActivity(intent)
+        }
         return view
     }
 
