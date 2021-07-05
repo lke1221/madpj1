@@ -17,5 +17,9 @@ class EasterEgg : AppCompatActivity() {
         var webView:WebView=findViewById(R.id.webView)
         webView.settings.javaScriptEnabled = true
         webView.loadUrl(url)
+
+
+
+
     }
 }

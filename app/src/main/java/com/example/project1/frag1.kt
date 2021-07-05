@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -14,7 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -88,6 +92,10 @@ class frag1 : Fragment() {
             val photo_uri = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
             if(photo_uri != null) {
                 obj.image = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, Uri.parse(photo_uri))
+            }
+            else {
+                val bitmap = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_account_circle_24)!!.toBitmap()
+                obj.image = bitmap
             }
 
             contactList.add(obj)
