@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun checkPermissions() {
         var rejectedPermissionList = ArrayList<String>()
         for(permission in requiredPermissions){

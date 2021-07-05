@@ -58,26 +58,12 @@
         android:layout_height="wrap_content"
         android:inputType="phone"/>
 
-    <!--EditText: Phone Number (Home)-->
-    <EditText
-        android:id="@+id/phoneHomeEt"
-        android:background="#fff"
-        android:padding="10dp"
-        android:layout_below="@id/lastNameEt"
-        android:layout_marginTop="5dp"
-        android:textColorHint="#c5c5c5"
-        android:hint="Phone Number (Home)"
-        android:textColor="#000"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"/>
-
     <!--EditText: Email-->
     <EditText
         android:id="@+id/emailEt"
         android:background="#fff"
         android:padding="10dp"
-        android:layout_below="@id/lastNameEt"
+        android:layout_below="@id/phoneMobileEt"
         android:layout_marginTop="5dp"
         android:textColorHint="#c5c5c5"
         android:hint="Email"
