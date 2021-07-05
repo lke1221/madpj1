@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class frag1 : Fragment() {
@@ -112,6 +113,11 @@ class frag1 : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.add_button).setOnClickListener {
             val intent = Intent(requireActivity(), addContact::class.java)
             startActivity(intent)
+        }
+        val swipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            getContacts(view)
+            swipeRefreshLayout.isRefreshing = false
         }
 
         return view
