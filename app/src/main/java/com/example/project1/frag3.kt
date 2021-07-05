@@ -1,7 +1,10 @@
 package com.example.project1
 
+import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context.ALARM_SERVICE
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,15 +14,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.graphics.scaleMatrix
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.util.*
 
 class frag3 : Fragment() {
 
     private lateinit var picker : MaterialTimePicker
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,13 +46,39 @@ class frag3 : Fragment() {
 
         }
         view.findViewById<Button>(R.id.setAlarmBtn).setOnClickListener{
-
+            setAlarm()
         }
         view.findViewById<Button>(R.id.cancelAlarmBtn).setOnClickListener{
-
+            cancelAlarm()
         }
 
         return view
+    }
+
+    private fun cancelAlarm() {
+        alarmManager = requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(requireContext(), AlarmReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+
+        alarmManager.cancel(pendingIntent)
+        Toast.makeText(requireContext(), "Alarm Cancelled", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setAlarm() {
+        alarmManager = requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(requireContext(), AlarmReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,pendingIntent
+
+        )
+
+        Toast.makeText(requireContext(), "Alarm set successfully", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun showTimePicker(view: View) {
@@ -63,8 +95,12 @@ class frag3 : Fragment() {
             }else{
                 view.findViewById<TextView>(R.id.selectedTime).setText(String.format("%02d", picker.hour)+":"+String.format("%02d", picker.minute)+"AM")
             }
+            calendar = Calendar.getInstance()
+            calendar[Calendar.HOUR_OF_DAY] = picker.hour
+            calendar[Calendar.MINUTE] = picker.minute
+            calendar[Calendar.SECOND] = 0
+            calendar[Calendar.MILLISECOND] = 0
         }
-        scaleMatrix()
     }
 
     private fun createNotificationChannel(){

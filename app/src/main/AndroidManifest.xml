@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EasterEgg"></activity>
+        <activity android:name=".DestinationActivity"></activity>
+        <activity android:name=".EasterEgg" />
         <activity android:name=".ImageFullActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".addContact" />
-        <receiver android:name=".AlarmReceiver"/>
+
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>
