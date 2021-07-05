@@ -6,29 +6,24 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class frag1 : Fragment() {
 
-
-    class CustomAdapter(private val dataSet: List<ContactDTO>, ctx: Context) :
-        RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
-
+    class CustomAdapter(private val dataSet: List<ContactDTO>, ctx: Context) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
         private var context: Context = ctx
         /**
          * Provide a reference to the type of views that you are using
@@ -80,7 +75,7 @@ class frag1 : Fragment() {
 
     fun getContacts(view: View) {
         //TODO get contacts code here
-        val contactList : MutableList<ContactDTO> = ArrayList()
+        var contactList : MutableList<ContactDTO> = ArrayList()
         val contacts = requireActivity().contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
         while(contacts!!.moveToNext()) {
             val name = contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
@@ -118,8 +113,11 @@ class frag1 : Fragment() {
             val intent = Intent(requireActivity(), addContact::class.java)
             startActivity(intent)
         }
+
         return view
     }
+
+
 
     internal fun newInstant() : frag1
     {
