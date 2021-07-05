@@ -28,6 +28,7 @@ import com.example.project1.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
+import java.text.DecimalFormat
 
 class addContact : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -61,11 +62,16 @@ class addContact : AppCompatActivity() {
         }
 
     }
+    private fun makemobilephonenumber(phonenumber: String): String {
+        val res = phonenumber.substring(0,3) + "-" + phonenumber.substring(3,7) + "-" + phonenumber.substring(7)
+        return res
+    }
+
     private fun saveContact() {
         Log.d(TAG, "saveContact")
         val firstName = findViewById<EditText>(R.id.firstNameEt).text.toString().trim()
         val lastName = findViewById<EditText>(R.id.lastNameEt).text.toString().trim()
-        val phoneMobile = findViewById<EditText>(R.id.phoneMobileEt).text.toString().trim()
+        val phoneMobile = makemobilephonenumber(findViewById<EditText>(R.id.phoneMobileEt).text.toString()).trim()
         val email = findViewById<EditText>(R.id.emailEt).text.toString().trim()
         val address = findViewById<EditText>(R.id.addressEt).text.toString().trim()
 
