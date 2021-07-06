@@ -23,17 +23,12 @@ class DestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        /*findViewById<Button>(R.id.stop).setOnClickListener {
-            AlarmPlay.stopAudio()
-        }*/
-
-        /*val selectedCount = intent.getIntExtra("selectedCount", 10)
-        val selectedDifficulty = intent.getIntExtra("difficulty", 0)*/
         questions = QuestionFactory.create(10, 2)
+        val size = questions?.size
         initQuestion()
         reportText()
 
-        /*buttons?.add(findViewById<Button>(R.id.optionButton1))
+        buttons?.add(findViewById<Button>(R.id.optionButton1))
         buttons?.add(findViewById<Button>(R.id.optionButton2))
         buttons?.add(findViewById<Button>(R.id.optionButton3))
         buttons?.add(findViewById<Button>(R.id.optionButton4))
@@ -104,12 +99,12 @@ class DestinationActivity : AppCompatActivity() {
             }
 
             builder.show()
-        }*/
+        }
     }
 
     fun reportText() {
-        findViewById<Button>(R.id.currentScore).text = "점수: $countCorrectAnswers"
-        findViewById<TextView>(R.id.reportText).setText("${index + 1} / 10}")
+        findViewById<TextView>(R.id.currentScore).text = "점수: $countCorrectAnswers"
+        findViewById<TextView>(R.id.reportText).setText("${index + 1} / 10")
     }
 
     fun toggleButtonsEnabled(newState: Boolean = false) {
