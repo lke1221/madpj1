@@ -1,5 +1,6 @@
 package com.example.project1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,19 +18,27 @@ class SummaryReport : AppCompatActivity() {
         var message = ""
 
         val percent = (score * 100) / total
-        var rounded = (round(percent * 10.0)) / 10.0
+        val rounded = (round(percent * 10.0)) / 10.0
 
         when (rounded) {
-            in 70.0..100.0 -> {
+            in 80.0..100.0 -> {
                 message = getString(R.string.pass)
+                findViewById<Button>(R.id.restartGame).visibility = View.GONE
                 findViewById<Button>(R.id.stop).visibility = View.VISIBLE
                 findViewById<Button>(R.id.stop).setOnClickListener {
                     AlarmPlay.stopAudio()
+                    finish()
                 }
             }
             else -> {
                 findViewById<Button>(R.id.stop).visibility = View.GONE
+                findViewById<Button>(R.id.restartGame).visibility = View.VISIBLE
                 message = getString(R.string.fail)
+                findViewById<Button>(R.id.restartGame).setOnClickListener {
+                    var restart = Intent(this, DestinationActivity::class.java)
+                    startActivity(restart)
+                    finish()
+                }
             }
         }
 
@@ -39,10 +48,6 @@ class SummaryReport : AppCompatActivity() {
             "You got "+"${score.toString()} (${rounded}%)" +" out of "+
                     " ${total.toString()} " +
                     "questions correct.")
-
-        findViewById<Button>(R.id.restartGame).setOnClickListener {
-            finish()
-        }
 
     }
 }

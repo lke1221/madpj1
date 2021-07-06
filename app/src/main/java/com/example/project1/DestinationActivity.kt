@@ -7,35 +7,9 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.project1.databinding.ActivityMainBinding
-import android.Manifest
-import android.content.ContentProviderOperation
 
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
-
-import android.os.PersistableBundle
-import android.provider.ContactsContract
-import android.provider.MediaStore
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
-
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.io.ByteArrayOutputStream
-import java.lang.Exception
-import java.text.DecimalFormat
 
 class DestinationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -54,18 +28,10 @@ class DestinationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_destination)
 
-        /*findViewById<Button>(R.id.stop).setOnClickListener {
-            AlarmPlay.stopAudio()
-        }*/
-
-        /*val selectedCount = intent.getIntExtra("selectedCount", 10)
-        val selectedDifficulty = intent.getIntExtra("difficulty", 0)*/
         questions = QuestionFactory.create(10, 2)
+        val size = questions?.size
         initQuestion()
         reportText()
-
-
-
 
         buttons?.add(findViewById<Button>(R.id.optionButton1))
         buttons?.add(findViewById<Button>(R.id.optionButton2))
@@ -109,10 +75,11 @@ class DestinationActivity : AppCompatActivity() {
                         setButtonColors()
                         setQuestionAndOptions()
                     } else {
-                        val intent = Intent(this, SummaryReport::class.java)
+                        var intent = Intent(this, SummaryReport::class.java)
                         intent.putExtra("score", countCorrectAnswers)
                         intent.putExtra("total", questions?.size!!)
                         startActivity(intent)
+                        finish()
                     }
                 }
             } else {
@@ -156,12 +123,12 @@ class DestinationActivity : AppCompatActivity() {
         super.onResume()
 
         if (index > 0) {
-            resetState()
+            this.recreate()
         }
     }
 
     fun resetState() {
-        finish()
+        this.recreate()
     }
 
     fun initQuestion() {
