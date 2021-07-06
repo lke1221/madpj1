@@ -28,7 +28,7 @@ class FragmentAdapter (fm : FragmentManager): FragmentPagerAdapter(fm) {
         {
             0->"연락처"
             1->"갤러리"
-            2->"기타"
+            2->"알람"
             else -> "main"
         }
         return title     }
