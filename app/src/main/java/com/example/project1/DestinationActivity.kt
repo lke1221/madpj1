@@ -31,9 +31,9 @@ class DestinationActivity : AppCompatActivity() {
         val selectedDifficulty = intent.getIntExtra("difficulty", 0)*/
         questions = QuestionFactory.create(10, 2)
         initQuestion()
-        /*reportText()
+        reportText()
 
-        buttons?.add(findViewById<Button>(R.id.optionButton1))
+        /*buttons?.add(findViewById<Button>(R.id.optionButton1))
         buttons?.add(findViewById<Button>(R.id.optionButton2))
         buttons?.add(findViewById<Button>(R.id.optionButton3))
         buttons?.add(findViewById<Button>(R.id.optionButton4))
@@ -109,7 +109,7 @@ class DestinationActivity : AppCompatActivity() {
 
     fun reportText() {
         findViewById<Button>(R.id.currentScore).text = "점수: $countCorrectAnswers"
-        findViewById<TextView>(R.id.reportText).setText("${index + 1} / ${questions?.size.toString()}")
+        findViewById<TextView>(R.id.reportText).setText("${index + 1} / 10}")
     }
 
     fun toggleButtonsEnabled(newState: Boolean = false) {

@@ -40,6 +40,8 @@ class AlarmReceiver : BroadcastReceiver(){
         notificationManager.notify(123, builder.build())
 
         AlarmPlay.startAlarm(context)
+        val mediaplayer = MediaPlayer.create(context, R.raw.music)
+        mediaplayer.start()
 
     }
 

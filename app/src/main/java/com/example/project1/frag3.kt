@@ -59,7 +59,7 @@ class frag3 : Fragment() {
         alarmManager = requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), AlarmReceiver::class.java)
 
-        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+        pendingIntent = PendingIntent.getBroadcast(requireContext(), 100, intent, 0)
 
         alarmManager.cancel(pendingIntent)
         Toast.makeText(requireContext(), "Alarm Cancelled", Toast.LENGTH_SHORT).show()
@@ -69,9 +69,9 @@ class frag3 : Fragment() {
         alarmManager = requireActivity().getSystemService(ALARM_SERVICE) as AlarmManager
         val intent = Intent(requireContext(), AlarmReceiver::class.java)
 
-        pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
+        pendingIntent = PendingIntent.getBroadcast(requireContext(), 100, intent, 0)
 
-        alarmManager.setRepeating(
+        alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,pendingIntent
 
