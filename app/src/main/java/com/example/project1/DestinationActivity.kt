@@ -6,8 +6,39 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.example.project1.databinding.ActivityMainBinding
+import android.Manifest
+import android.content.ContentProviderOperation
+
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+
+import android.os.PersistableBundle
+import android.provider.ContactsContract
+import android.provider.MediaStore
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
+
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.ByteArrayOutputStream
+import java.lang.Exception
+import java.text.DecimalFormat
 
 class DestinationActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     var selected: Int? = null
     var hasSubmitted: Boolean = false
     var textSelected: String = ""
@@ -33,7 +64,10 @@ class DestinationActivity : AppCompatActivity() {
         initQuestion()
         reportText()
 
-        /*buttons?.add(findViewById<Button>(R.id.optionButton1))
+
+
+
+        buttons?.add(findViewById<Button>(R.id.optionButton1))
         buttons?.add(findViewById<Button>(R.id.optionButton2))
         buttons?.add(findViewById<Button>(R.id.optionButton3))
         buttons?.add(findViewById<Button>(R.id.optionButton4))
@@ -104,12 +138,12 @@ class DestinationActivity : AppCompatActivity() {
             }
 
             builder.show()
-        }*/
+        }
     }
 
     fun reportText() {
-        findViewById<Button>(R.id.currentScore).text = "점수: $countCorrectAnswers"
-        findViewById<TextView>(R.id.reportText).setText("${index + 1} / 10}")
+        findViewById<TextView>(R.id.currentScore).text = "점수: $countCorrectAnswers"
+        findViewById<TextView>(R.id.reportText).setText("${index + 1} / 10")
     }
 
     fun toggleButtonsEnabled(newState: Boolean = false) {
