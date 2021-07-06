@@ -9,7 +9,7 @@ class QuestionFactory() {
         fun setQuestionAttributes(text: String, result: Int): Question {
             var question = Question()
             var values
-                    = mutableListOf<Int>(result + 1, result + 2, result - 1, result - 2)
+                    = mutableListOf<Int>(result + 10, result + 20, result - 10, result - 20)
             values.shuffle()
             val randomIndex = (0..3).random()
             values.set(randomIndex, result)

@@ -1,6 +1,7 @@
 package com.example.project1
 
 import android.app.PendingIntent
+import android.app.PendingIntent.CanceledException
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -9,33 +10,27 @@ import androidx.core.app.NotificationManagerCompat
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
 class AlarmReceiver : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val i = Intent(context,DestinationActivity::class.java)
-        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        val pendingIntent = PendingIntent.getActivity(context, 0, i, 0)
 
-        val calendar: Calendar = Calendar.getInstance()
-        val formatDate: SimpleDateFormat = SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.KOREA)
-        val formatTime: SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.KOREA)
-        val date = formatDate.format(calendar.time)
-        val time = formatTime.format(calendar.time)
+        var intent = intent
+        try {
+            intent = Intent(context, DestinationActivity::class.java)
+            val pi = PendingIntent.getActivity(
+                context, 0, intent,
+                PendingIntent.FLAG_ONE_SHOT
+            )
+            pi.send()
+        } catch (e: CanceledException) {
+            // TODO Auto-generated catch block
+            e.printStackTrace()
+        }
 
-        val builder = NotificationCompat.Builder(context!!, "foxandroid")
-            .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle("기상")
-            .setContentText("$time")
-            .setAutoCancel(true)
-            .setSilent(true)
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-
-        val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(123, builder.build())
-
-        AlarmPlay.startAlarm(context)
+        //context?.startService(Intent(context, AlarmService::class.java))
+        AlarmPlay.startAlarm(context!!)
 
     }
 
