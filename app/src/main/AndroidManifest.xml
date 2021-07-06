@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
         <activity android:name=".SummaryReport"></activity>
-        <activity android:name=".DestinationActivity" />
+
         <activity android:name=".EasterEgg" />
         <activity android:name=".ImageFullActivity" />
         <activity android:name=".MainActivity">
@@ -28,6 +28,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".addContact" />
+
+        <activity
+            android:name=".DestinationActivity">
+            <intent-filter>
+                <action android:name="com.example.project1.widget.ACTIVITY_DESTINATION" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
 
         <receiver android:name=".AlarmReceiver"
             android:exported="false"/>
