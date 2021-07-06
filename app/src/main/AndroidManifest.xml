@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DestinationActivity"></activity>
+        <activity android:name=".SummaryReport"></activity>
+        <activity android:name=".DestinationActivity" />
         <activity android:name=".EasterEgg" />
         <activity android:name=".ImageFullActivity" />
         <activity android:name=".MainActivity">
