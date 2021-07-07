@@ -2,14 +2,13 @@ package com.example.project1
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.project1.databinding.ActivityMainBinding
 
-import android.widget.Button
-import android.widget.Toast
 
 class DestinationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -23,6 +22,13 @@ class DestinationActivity : AppCompatActivity() {
     var buttons = ArrayList<Button>()
     var countCorrectAnswers = 0
     var startTime: Long? = null
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_BACK) {
+            Toast.makeText(this, "어림도 없지!", Toast.LENGTH_SHORT).show()
+        }
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +125,18 @@ class DestinationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        stopService(Intent(this, AlarmService::class.java))
+        startService(Intent(this, AlarmService::class.java))
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        this.recreate()
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -165,4 +183,5 @@ class DestinationActivity : AppCompatActivity() {
         button.setBackgroundColor(backgroundColor)
         button.setTextColor(textColor)
     }
+
 }
