@@ -41,6 +41,7 @@ class AlarmService : Service() {
         mView = li.inflate(R.layout.moveback, null)
         wm?.addView(mView, params)
         val bt = mView?.findViewById<Button>(R.id.returnback)
+
         bt?.setOnClickListener {
             onDestroy()
         }
