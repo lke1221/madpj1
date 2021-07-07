@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import android.view.*
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 class AlarmService : Service() {
@@ -40,6 +41,7 @@ class AlarmService : Service() {
         params.gravity = Gravity.LEFT or Gravity.TOP
         mView = li.inflate(R.layout.moveback, null)
         wm?.addView(mView, params)
+        mView?.findViewById<ImageView>(R.id.imageView3)?.setImageResource(R.drawable.jang)
         val bt = mView?.findViewById<Button>(R.id.returnback)
 
         bt?.setOnClickListener {
