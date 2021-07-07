@@ -27,6 +27,7 @@ class SummaryReport : AppCompatActivity() {
                 findViewById<Button>(R.id.stop).visibility = View.VISIBLE
                 findViewById<Button>(R.id.stop).setOnClickListener {
                     AlarmPlay.stopAudio()
+                    stopService(Intent(this, AlarmService::class.java))
                     finish()
                 }
             }

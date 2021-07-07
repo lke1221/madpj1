@@ -127,7 +127,7 @@ class DestinationActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if(countCorrectAnswers < 8 || index == 10) {
+        if(countCorrectAnswers < 8 || index != 10) {
             stopService(Intent(this, AlarmService::class.java))
             startService(Intent(this, AlarmService::class.java))
         }
