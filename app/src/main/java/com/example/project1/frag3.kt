@@ -92,6 +92,8 @@ class frag3 : Fragment() {
         picker.addOnPositiveButtonClickListener{
             if(picker.hour>12){
                 view.findViewById<TextView>(R.id.selectedTime).setText(String.format("%02d", picker.hour-12)+":"+String.format("%02d", picker.minute)+"PM")
+            }else if (picker.hour==12){
+                view.findViewById<TextView>(R.id.selectedTime).setText(String.format("%02d", picker.hour)+":"+String.format("%02d", picker.minute)+"PM")
             }else{
                 view.findViewById<TextView>(R.id.selectedTime).setText(String.format("%02d", picker.hour)+":"+String.format("%02d", picker.minute)+"AM")
             }
